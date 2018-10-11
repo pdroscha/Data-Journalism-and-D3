@@ -14,11 +14,11 @@ var svg = d3
   .attr("width", svgWidth)
   .attr("height", svgHeight);
 
-var chartGroup = svg.append("g")
+var chart = svg.append("g")
 .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Import data from an external CSV file
-d3.csv("../data.csv", function(error, healthData) {
+d3.csv("data.csv", function(error, healthData) {
     if (error) throw error;
   
     console.log(healthData);
@@ -52,10 +52,9 @@ d3.csv("../data.csv", function(error, healthData) {
 	    var healthStatus = +data.healthStatus;
 	    return (state + "<br> Poverty Rate: " + povertyRate + "<br> Percentage of the population in fair or poor health: " + healthStatus);
       });
-      
+
       chart.call(toolTip);
-
-
+      
       chart.selectAll("circle")
        .data(healthData)
        .enter()
@@ -70,7 +69,7 @@ d3.csv("../data.csv", function(error, healthData) {
         })
         .attr("r", "10")
         .attr("fill","lightblue")
-        .style("opacity", 0.5)
+        .style("opacity", 1)
         .on("click", function(data) {
             toolTip.show(data);
         })
